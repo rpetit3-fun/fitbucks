@@ -1,0 +1,20 @@
+# Apache Rewrite Rules
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteBase /
+
+    # Ignore sub directories
+    RewriteRule ^(css|favicon|fonts|images|img|js|php-bin) - [L,NC]
+
+    # Rewrite index.php to root
+    RewriteRule ^shannon/index\.(php|htm|html)$ shannon/ [R=301,NC,L]
+
+    # Remove .php
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}\.php -f
+    RewriteRule ^([^/]+)/$ shannon/$1.php
+
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^shannon/(.*)\.php$ shannon/$1/ [R=301,L]
+</IfModule>
