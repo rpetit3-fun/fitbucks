@@ -1,0 +1,19 @@
+{% url 'home' as home %}
+{% url 'daily_tasks' as daily_task %}
+{% url 'missions' as missions %}
+{% url 'quests' as quests %}
+{% url 'rewards' as rewards %}
+{% load navbar %}
+
+{% block navbar %}
+    <div class="page-header">
+        <ul class="nav nav-pills pull-right">
+            <li class="{% active request home %}"><a href="/">Home</a></li>
+            <li class="{% active request daily_task %}"><a href="/daily-tasks/">Daily Tasks</a></li>
+            <li class="{% active request missions %} disabled"><a href="/missions/">Missions</a></li>
+            <li class="{% active request quests %} disabled"><a href="/quests/">Quests</a></li>
+            <li class="{% active request rewards %} disabled"><a href="/rewards/">Rewards</a></li>
+        </ul>
+        <h2 class="text-muted">FitBucks</h2>
+    </div>
+{% endblock %}

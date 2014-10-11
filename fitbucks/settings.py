@@ -21,14 +21,13 @@ SECRET_KEY = '12+)&piaff5^dt_4_x#8(a$5!@7^e!b&uf)d0#5#rp43nff_+^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 TEMPLATE_DEBUG = True
-
 ALLOWED_HOSTS = []
 
 
-# Application definition
-
+'''-----------------------------------------------------------------------------
+Applications 
+-----------------------------------------------------------------------------'''
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -36,8 +35,14 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'fitbucks',
 )
 
+
+'''-----------------------------------------------------------------------------
+Middleware 
+-----------------------------------------------------------------------------'''
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -48,40 +53,60 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+'''-----------------------------------------------------------------------------
+FitBucks
+-----------------------------------------------------------------------------'''
 ROOT_URLCONF = 'fitbucks.urls'
-
 WSGI_APPLICATION = 'fitbucks.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-            'NAME': 'fitbucks',
-            'USER': 'fitbucks',
-            'PASSWORD': 'fitbucks',
-            'HOST': 'localhost',
-            'PORT': '',
-        }
+'''-----------------------------------------------------------------------------
+Database 
+https://docs.djangoproject.com/en/1.7/ref/settings/#databases
+-----------------------------------------------------------------------------'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+        'NAME': 'fitbucks',
+        'USER': 'fitbucks',
+        'PASSWORD': 'fitbucks',
+        'HOST': 'localhost',
+        'PORT': '',
     }
-
-# Internationalization
-# https://docs.djangoproject.com/en/1.7/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
+}
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.7/howto/static-files/
 
+'''-----------------------------------------------------------------------------
+Static files (CSS, JavaScript, Images)
+https://docs.djangoproject.com/en/1.7/howto/static-files/
+-----------------------------------------------------------------------------'''
 STATIC_URL = '/static/'
+
+
+'''-----------------------------------------------------------------------------
+Template 
+-----------------------------------------------------------------------------'''
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, "templates"),
+)
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.request',
+)
+
+'''-----------------------------------------------------------------------------
+Internationalization
+https://docs.djangoproject.com/en/1.6/topics/i18n/
+-----------------------------------------------------------------------------'''
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True

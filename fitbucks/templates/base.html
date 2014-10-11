@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% block css %}{% endblock %}
+        {% block title %}{% endblock %}
+    </head>
+
+    <body>
+        <div class="container">
+            <!-- Top Bar -->
+            {% include 'base_navbar.html' %}
+            <!-- End Top Bar -->
+            
+             <!-- Main Content-->
+            {% block container %}{% endblock %}
+            <!-- End Main Content-->
+        
+            <!-- Footer -->
+            <footer class="row text-center">
+                <div>
+                    <hr />
+                    <div class="copyright">Copyright &#169; 2012-2014 FitBucks. All rights reserved.</div>
+                </div>
+            </footer>
+            <!-- End Footer -->
+        
+        {% if user.is_authenticated %}
+        logged in
+        {% else %}
+        not logged in
+        {% endif %}
+        </div>
+
+        <!-- Javascipt -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+     
+        {% if user.is_authenticated %}
+        <script>
+            $(document).ready(function() {
+                $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+            });
+        </script>
+        {% endif %}
+        
+        {% block js %}
+        {% endblock %}
+        <!-- End Javascript -->
+            
+    </body>
+</html>
