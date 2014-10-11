@@ -1,4 +1,4 @@
-fitness-tracker
+fun-money
 ===============
 
-Easily log a few daily fitness tasks
+Django project to log fitness stats and earn some fun money.
