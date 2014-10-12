@@ -1,2 +1,4 @@
 *.pyc
 logs/
+fitbucks/private.py
+fitbucks/static/admin/

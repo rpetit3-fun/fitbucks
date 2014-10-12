@@ -10,19 +10,13 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from fitbucks.private import *
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '12+)&piaff5^dt_4_x#8(a$5!@7^e!b&uf)d0#5#rp43nff_+^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 TEMPLATE_DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 '''-----------------------------------------------------------------------------
@@ -32,13 +26,24 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.humanize',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'registration',
+    'crispy_forms',
+    'django_email_changer',
     
     'fitbucks',
 )
 
+# django-registration
+ACCOUNT_ACTIVATION_DAYS=7
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+# django_email_changer 
+EMAIL_CHANGE_NOTIFICATION_SUBJECT = '[Email Update] - Please verify FitBucks email update'
+EMAIL_CHANGE_NOTIFICATION_FROM = "FitBucks' Friendly Robot <fitbucks.team@gmail.com>"
 
 '''-----------------------------------------------------------------------------
 Middleware 
@@ -53,11 +58,29 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+
+'''-----------------------------------------------------------------------------
+Static 
+https://docs.djangoproject.com/en/1.7/howto/static-files/
+-----------------------------------------------------------------------------'''
+STATIC_URL = '/static/'
+STATIC_ROOT = ''
+STATICFILES_DIRS = ( 
+    os.path.join(BASE_DIR, "static"), 
+)
+STATICFILES_FINDERS = ( 
+    'django.contrib.staticfiles.finders.FileSystemFinder', 
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder', 
+) 
+
+
 '''-----------------------------------------------------------------------------
 FitBucks
 -----------------------------------------------------------------------------'''
 ROOT_URLCONF = 'fitbucks.urls'
 WSGI_APPLICATION = 'fitbucks.wsgi.application'
+DEFAULT_FROM_EMAIL = "FitBucks' Friendly Robot <fitbucks.team@gmail.com>"
+LOGIN_URL = '/accounts/login/'
 
 
 '''-----------------------------------------------------------------------------
@@ -76,14 +99,6 @@ DATABASES = {
 }
 
 
-
-'''-----------------------------------------------------------------------------
-Static files (CSS, JavaScript, Images)
-https://docs.djangoproject.com/en/1.7/howto/static-files/
------------------------------------------------------------------------------'''
-STATIC_URL = '/static/'
-
-
 '''-----------------------------------------------------------------------------
 Template 
 -----------------------------------------------------------------------------'''
@@ -100,6 +115,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.request',
 )
+
 
 '''-----------------------------------------------------------------------------
 Internationalization
