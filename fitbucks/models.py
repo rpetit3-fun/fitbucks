@@ -13,3 +13,5 @@ class DailyTasks(models.Model):
     sphinxes = models.PositiveSmallIntegerField(default=0)
     workout = models.PositiveSmallIntegerField(default=0)
     
+    class Meta: 
+        unique_together = ('user', 'date')
