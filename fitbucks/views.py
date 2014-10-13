@@ -1,21 +1,32 @@
-from django.http import HttpResponseRedirect
+import json
+
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.contrib.auth.models import User
+
 
 from fitbucks.forms import DailyTasksForm
+from fitbucks.models import DailyTasks
 
 def index(request):
     return render_to_response('index.html', {}, RequestContext(request))
     
 def daily_tasks(request):
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            form = DailyTasksForm(request.user.id, request.POST)
+    if request.user.is_authenticated():
+        if request.POST:
+            form = DailyTasksForm(request.POST)
             if form.is_valid():
-                save_results = form.save(request.user.id, request.POST)
-                return HttpResponseRedirect('/daily-tasks/')
+                dailytasks = form.save(request.user, request.POST)
+                if request.is_ajax():
+                    return HttpResponse('saved')
+                else:
+                    return HttpResponseRedirect('/daily-tasks/')
+            else:
+                if request.is_ajax():
+                    return HttpResponse('invalid')
         else:
-            form = DailyTasksForm(request.user.id)
+            form = DailyTasksForm()
             return render_to_response('daily_tasks.html', {'form':form}, RequestContext(request))
     else:
         return HttpResponseRedirect('/')

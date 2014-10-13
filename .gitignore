@@ -2,3 +2,4 @@
 logs/
 fitbucks/private.py
 fitbucks/static/admin/
+fitbucks/static/dajax/

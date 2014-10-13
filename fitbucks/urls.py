@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.views.generic import RedirectView
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+
 from registration.forms import RegistrationFormUniqueEmail
 from registration.backends.default.views import RegistrationView, ActivationView
 from django_email_changer.views import CreateUserEmailModificationRequest, ActivateUserEmailModification, ActivationEmailSentSuccessView
@@ -10,13 +11,17 @@ from fitbucks.forms import RegistrationFormWithName
 
 urlpatterns = patterns('',
 
+    # AJAX
+    url(r'^ajax/get_daily_stats/', 'fitbucks.ajax.get_daily_stats', 
+        name='get_daily_stats'),
+        
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'fitbucks.views.index', name='home'),
     url(r'^daily-tasks/', 'fitbucks.views.daily_tasks', name='daily_tasks'),
     url(r'^missions/', 'fitbucks.views.missions', name='missions'),
     url(r'^quests/', 'fitbucks.views.quests', name='quests'),
     url(r'^rewards/', 'fitbucks.views.rewards', name='rewards'),
-    
+
     # django-email-changer
     url(r'accounts/email/change/activate/(?P<code>[^/]+)/',
         ActivateUserEmailModification.as_view(),

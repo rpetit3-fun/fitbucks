@@ -1,6 +1,7 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 {% load crispy_forms_tags %}
-{% crispy form %}
+
 {% block css %}
     <style>
         .btn-primary {
@@ -33,7 +34,7 @@
                 <hr />
             </div>
             <div class="row">
-                <h4>Total Steps:</h4>
+                <h4 id='id_steps'></h4>
             </div>
         </div>
 
@@ -55,14 +56,11 @@
 {% endblock %}
 
 {% block js %}
+    <script src="{% static "/static/js/fitbucks.js" %}"></script>
     <script>
-        var date = new Date();
-        var today = (date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear();
-        var cal = $('#datepicker').datepicker({
-            format: 'mm/dd/yyyy',
-            startDate: "10/06/2014",
-            endDate: '0d'
-        })
-        $('#datepicker').datepicker('setDate', today);
+        $(document).ready(function () {       
+            init_datepicker();
+            init_stats_form();
+        });
     </script>
 {% endblock %}
