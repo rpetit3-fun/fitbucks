@@ -3,4 +3,3 @@ git+git://github.com/macropin/django-registration
 django-crispy-forms==1.4.0
 psycopg2==2.5.4
 django-email-changer==0.1.2
-django_dajax==0.9.2
