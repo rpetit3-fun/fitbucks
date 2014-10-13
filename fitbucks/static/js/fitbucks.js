@@ -4,18 +4,22 @@
 function init_datepicker() {
     var date = new Date();
     var today = date.getFullYear() + '-' +  (date.getMonth() + 1) + '-' + date.getDate();
+    var previous_date = today;
     get_daily_stats(today);
     
     $('#datepicker').datepicker({
         format: 'yyyy-mm-dd',
-        startDate: "2014-10-13",
+        startDate: "2014-10-10",
         endDate: '0d'
     }).on('changeDate', function(e){
         var new_date = $('#datepicker').datepicker('getDate')
-        new_date = new_date.getFullYear() + '-' +  (new_date.getMonth() + 1) + '-' + new_date.getDate()
-        
-        // Check if we have data on this date
-        get_daily_stats(new_date);
+        if ( isNaN( new_date.getTime() ) ) {
+            $('#datepicker').datepicker('setDate', previous_date);
+        } else {
+            new_date = new_date.getFullYear() + '-' +  (new_date.getMonth() + 1) + '-' + new_date.getDate()
+            previous_date = new_date
+            get_daily_stats(new_date);
+        }
     });
     $('#datepicker').datepicker('setDate', today);  
 };
