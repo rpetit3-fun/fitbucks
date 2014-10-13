@@ -9,7 +9,7 @@ function init_datepicker() {
     
     $('#datepicker').datepicker({
         format: 'yyyy-mm-dd',
-        startDate: "2014-10-10",
+        startDate: "2014-10-13",
         endDate: '0d'
     }).on('changeDate', function(e){
         var new_date = $('#datepicker').datepicker('getDate')
