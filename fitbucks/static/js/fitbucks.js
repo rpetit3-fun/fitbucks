@@ -55,7 +55,7 @@ function init_stats_form() {
             var field = json[0].fields
             $('#id_workout').val(field.workout);
             $('#id_planks').val(field.planks);
-            $('#id_shinxes').val(field.sphinxes);
+            $('#id_sphinxes').val(field.sphinxes);
             $('#id_pushups').val(field.pushups);
             $('#id_situps').val(field.situps);
             $('#id_squats').val(field.squats);
