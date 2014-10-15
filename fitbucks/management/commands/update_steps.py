@@ -1,6 +1,7 @@
 '''
 
 '''
+import pytz
 import subprocess
 from optparse import make_option
 from datetime import date, datetime, timedelta
@@ -28,15 +29,15 @@ class Command(BaseCommand):
             raise CommandError('--username')
             
         # Get steps
+        yesterday = datetime.now(pytz.timezone('US/Eastern')) - timedelta(1)
+        yesterday = datetime.strftime(yesterday, "%Y-%m-%d")
+
         cmd = ['python', '/home/rpetit/repos/fitbit-steps/fitbit-steps.py', 
-               '--name', options['name'], '--date', 'yesterday']
+               '--name', options['name'], '--date', yesterday]
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
         steps, error = p.communicate()
-        
-        yesterday = date.today() - timedelta(1)
-        yesterday = datetime.strftime(yesterday, "%Y-%m-%d")
+        steps = 0
         user = User.objects.get(username=options['username'])
-
         try:
             dailytasks = DailyTasks.objects.get(user=user, 
                                                 date=yesterday)
