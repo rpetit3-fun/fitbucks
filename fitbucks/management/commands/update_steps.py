@@ -36,7 +36,7 @@ class Command(BaseCommand):
                '--name', options['name'], '--date', yesterday]
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
         steps, error = p.communicate()
-        steps = 0
+
         user = User.objects.get(username=options['username'])
         try:
             dailytasks = DailyTasks.objects.get(user=user, 
