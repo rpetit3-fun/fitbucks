@@ -4,8 +4,8 @@
 
 {% block css %}
     <style>
-        .btn-primary {
-            float: right !important;
+        .submit_buttons {
+            margin-top: 35px;
         }
         .datepicker {
             padding: 0px !important;
@@ -26,6 +26,15 @@
         #update_steps {
             margin-right: 19px;
         }
+        label div {
+            display: inline;
+        }
+        .icon-skull {
+            color: #d00000;
+        }
+        .icon-moneybag {
+            color: #85BB65;
+        }
     </style>
 {% endblock %}
 {% block container %}
@@ -37,24 +46,22 @@
                 <hr />
             </div>
             <div class="row">
-                <h4 id='id_steps'></h4>
+                
             </div>
         </div>
-
-            <div class="col-sm-8">
-                <div class="row">
-                    <div class="text-center">
-                        <h3>Log Your Daily Tasks</h3>
-                        <hr/>
-                    </div>
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="text-center">
+                    <h3>Log Your Daily Tasks</h3>
+                    <hr/>
                 </div>
-                <div class="row">
-                    <div>
-                    {% crispy form %}
-                    </div>
-                </div>   
             </div>
-
+            <div class="row">
+                <div>
+                {% crispy form %}
+                </div>
+            </div>   
+        </div>
     </div>
 {% endblock %}
 
@@ -64,6 +71,8 @@
         $(document).ready(function () {       
             init_datepicker();
             init_stats_form();
+            
         });
+        $('#id_steps').attr('disabled', true);
     </script>
 {% endblock %}

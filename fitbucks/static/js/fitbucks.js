@@ -67,21 +67,25 @@ function get_daily_stats(date) {
         data: {'date':date},
         dataType: "json",
         success: function(data) { 
+            console.log(data);
             var json = $.parseJSON(data);
             var field = json[0].fields
             $('#id_workout').val(field.workout);
+            $('#id_workout-icon').html(get_icon('workout', field.workout));
             $('#id_planks').val(field.planks);
+            $('#id_planks-icon').html(get_icon('planks', field.planks));
             $('#id_sphinxes').val(field.sphinxes);
+            $('#id_sphinxes-icon').html(get_icon('sphinxes', field.sphinxes));
             $('#id_pushups').val(field.pushups);
+            $('#id_pushups-icon').html(get_icon('pushups', field.pushups));
             $('#id_situps').val(field.situps);
+            $('#id_situps-icon').html(get_icon('situps', field.situps));
             $('#id_squats').val(field.squats);
+            $('#id_squats-icon').html(get_icon('squats', field.squats));
             $('#id_date').val(date);
             
-            if (field.steps == 0) {
-                $('#id_steps').html("Total Steps: <em>Not Synced Yet</em>");
-            } else {
-                $('#id_steps').html("Total Steps: "+field.steps);
-            }
+            $('#id_steps').val(field.steps);
+            $('#id_steps-icon').html(get_icon('steps', field.steps));
         },
         error: function(error){
             if (error != 'DoesNotExist') {
@@ -91,3 +95,37 @@ function get_daily_stats(date) {
         }
     });
 };
+
+function get_icon(field, val) {
+    var status = false
+    
+    switch (field) {
+        case 'workout':
+            status = (val >= 25 ? true : false);
+            break;
+        case 'planks':
+            status = (val >= 60 ? true : false);
+            break;
+        case 'sphinxes':
+            status = (val >= 60 ? true : false);
+            break;
+        case 'pushups':
+            status = (val >= 50 ? true : false);
+            break;
+        case 'situps':
+            status = (val >= 50 ? true : false);
+            break;
+        case 'squats':
+            status = (val >= 50 ? true : false);
+            break;
+        case 'steps':
+            status = (val >= 10000 ? true : false);
+            break;
+    }
+
+    if (status) {
+        return '<i class="icon-moneybag"></i>'
+    } else {
+        return '<i class="icon-skull"></i>'
+    }
+}

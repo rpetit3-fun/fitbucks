@@ -24,20 +24,23 @@ class DailyTasksForm(forms.ModelForm):
         self.helper.form_id = 'save-daily-task'
         self.helper.form_class = 'input-lg'
         self.helper.form_action = ''
+        self.fields['steps'].disabled = True
         self.helper.layout = Layout(
             Div(
-                'workout', 'planks', 'sphinxes',
-
+                'workout', 'planks', 'sphinxes', 'steps',
                 css_class=css
             ),
             Div(
                 'pushups', 'situps', 'squats',
-                Submit('submit', 'Save', css_class='btn-lg'),
-                HTML('''
-                    <button id="update_steps" type="button" class="btn btn-primary btn-lg">
-                        Sync Steps
-                    </button>
-                '''),
+                Div(
+                    Div(HTML('''
+                                <button id="update_steps" type="button" class="btn btn-primary btn-lg">
+                                    Sync Steps
+                                </button>
+                            '''), css_class='col-sm-5 col-sm-offset-3'), 
+                    Div(Submit('submit', 'Save', css_class='btn-lg'), css_class='col-sm-3'),
+                    css_class='row submit_buttons'
+                ),
                 css_class=css
             ),
             Field('date', type='hidden'),
@@ -61,13 +64,14 @@ class DailyTasksForm(forms.ModelForm):
 
     class Meta:
         model = DailyTasks
-        fields = ['workout', 'planks', 'sphinxes',
+        fields = ['workout', 'planks', 'sphinxes', 'steps',
                   'pushups', 'situps', 'squats', 'date']
         labels = {
-            'workout':_('Workout (Minutes)'), 
-            'planks':_('Planks (Seconds)'), 
-            'sphinxes':_('Sphinxes (Seconds)'),
-            'pushups':_('Push Ups'), 
-            'situps':_('Sit Ups'), 
-            'squats':_('Squats'),
+            'workout':_('Workout (Minutes) <div id="id_workout-icon"></div>'), 
+            'planks':_('Planks (Seconds) <div id="id_planks-icon"></div>'), 
+            'sphinxes':_('Sphinxes (Seconds) <div id="id_sphinxes-icon"></div>'),
+            'pushups':_('Push Ups <div id="id_pushups-icon"></div>'), 
+            'situps':_('Sit Ups <div id="id_situps-icon"></div>'), 
+            'squats':_('Squats <div id="id_squats-icon"></div>'),
+            'steps':_('Steps <div id="id_steps-icon"></div>'),
         }
