@@ -12,8 +12,10 @@ from fitbucks.forms import RegistrationFormWithName
 urlpatterns = patterns('',
 
     # AJAX
-    url(r'^ajax/get_daily_stats/', 'fitbucks.ajax.get_daily_stats', 
+    url(r'^ajax/get-daily-stats/', 'fitbucks.ajax.get_daily_stats', 
         name='get_daily_stats'),
+    url(r'^ajax/update-steps/', 'fitbucks.ajax.update_steps', 
+        name='update_steps'),
         
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'fitbucks.views.index', name='home'),

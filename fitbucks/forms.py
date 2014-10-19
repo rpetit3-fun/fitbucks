@@ -27,11 +27,17 @@ class DailyTasksForm(forms.ModelForm):
         self.helper.layout = Layout(
             Div(
                 'workout', 'planks', 'sphinxes',
+
                 css_class=css
             ),
             Div(
                 'pushups', 'situps', 'squats',
                 Submit('submit', 'Save', css_class='btn-lg'),
+                HTML('''
+                    <button id="update_steps" type="button" class="btn btn-primary btn-lg">
+                        Sync Steps
+                    </button>
+                '''),
                 css_class=css
             ),
             Field('date', type='hidden'),

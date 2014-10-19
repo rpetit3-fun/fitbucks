@@ -18,32 +18,45 @@ class Command(BaseCommand):
                     help='Name to look up steps for.'),
         make_option('--username', dest='username',
                     help='User ID to store the results under.'),
+        make_option('--date', dest='date',
+                    help='Date to look up steps for (Default: yesterday).'),
     )
 
         
     def handle(self, *args, **options):
         # Required Parameters
         if not options['name']:
-            raise CommandError('--name')
-        elif not options['username']:
-            raise CommandError('--username')
+            if args[0]:
+                options['name'] = args[0]
+            else:
+                raise CommandError('--name')
+        if not options['username']:
+            if args[1]:
+                options['username'] = args[1]
+            else:
+                raise CommandError('--username')
+        if not options['date']:
+            if args[2]:
+                options['date'] = args[2]
+            else:
+                yesterday = datetime.now(pytz.timezone('US/Eastern')) - timedelta(1)
+                yesterday = datetime.strftime(yesterday, "%Y-%m-%d")
+                options['date'] = yesterday
             
-        # Get steps
-        yesterday = datetime.now(pytz.timezone('US/Eastern')) - timedelta(1)
-        yesterday = datetime.strftime(yesterday, "%Y-%m-%d")
-
         cmd = ['python', '/home/rpetit/repos/fitbit-steps/fitbit-steps.py', 
-               '--name', options['name'], '--date', yesterday]
+               '--name', options['name'], '--date', options['date']]
+
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
         steps, error = p.communicate()
 
         user = User.objects.get(username=options['username'])
         try:
             dailytasks = DailyTasks.objects.get(user=user, 
-                                                date=yesterday)
+                                                date=options['date'])
             dailytasks.steps = int(steps)
             dailytasks.save()
         except DailyTasks.DoesNotExist:
-            dailytasks = DailyTasks.objects.create(user=user, date=yesterday, 
+            dailytasks = DailyTasks.objects.create(user=user, 
+                                                   date=options['date'], 
                                                    steps=int(steps))
             dailytasks.save()                                       
