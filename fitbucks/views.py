@@ -24,7 +24,7 @@ def daily_tasks(request):
                     return HttpResponseRedirect('/daily-tasks/')
             else:
                 if request.is_ajax():
-                    return HttpResponse('invalid')
+                    return HttpResponse(form.errors)
         else:
             form = DailyTasksForm()
             return render_to_response('daily_tasks.html', {'form':form}, RequestContext(request))

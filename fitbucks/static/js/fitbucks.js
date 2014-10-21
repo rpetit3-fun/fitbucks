@@ -30,7 +30,7 @@ function init_stats_form() {
         $.ajax({
             type: 'POST',
             url: '/daily-tasks/',
-            data: frm.serialize(),
+            data: frm.serialize()+"&steps="+$('#id_steps').val(),
             success: function (data) {
                 console.log(data);
             },
