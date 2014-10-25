@@ -32,6 +32,7 @@ function init_stats_form() {
             url: '/daily-tasks/',
             data: frm.serialize()+"&steps="+$('#id_steps').val(),
             success: function (data) {
+                get_daily_stats($('#id_date').val())
                 console.log(data);
             },
             error: function(data) {
