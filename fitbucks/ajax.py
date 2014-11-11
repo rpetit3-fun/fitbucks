@@ -8,13 +8,14 @@ from django.contrib.auth.models import User
 
 from fitbucks.models import DailyTasks
 
+
 @csrf_exempt
 def get_daily_stats(request):
     if request.POST and request.is_ajax():
-        dailytasks= None
+        dailytasks = None
         data = None
         try:
-            dailytasks = DailyTasks.objects.get(user=request.user, 
+            dailytasks = DailyTasks.objects.get(user=request.user,
                                                 date=request.POST['date'])
         except DailyTasks.DoesNotExist:
             dailytasks = DailyTasks.objects.create(
@@ -24,7 +25,8 @@ def get_daily_stats(request):
         data = serializers.serialize('json', [dailytasks])
         return HttpResponse(json.dumps(data), "application/json")
     return HttpResponseRedirect('/daily-tasks/')
-    
+
+
 @csrf_exempt
 def update_steps(request):
     if request.is_ajax():
@@ -33,6 +35,6 @@ def update_steps(request):
         if request.user.username == 'rpetit':
             name = 'rpetit'
         management.call_command('update_steps', name, request.user.username, date)
-                                
-        return HttpResponse(json.dumps({'done':'done'}), "application/json")
+
+        return HttpResponse(json.dumps({'done': 'done'}), "application/json")
     return HttpResponseRedirect('/daily-tasks/')

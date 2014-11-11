@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 
 from fitbucks.models import DailyTasks
 
+
 class Command(BaseCommand):
     help = 'Insert steps from yesterday into database.'
     option_list = BaseCommand.option_list + (
@@ -22,7 +23,7 @@ class Command(BaseCommand):
                     help='Date to look up steps for (Default: yesterday).'),
     )
 
-        
+
     def handle(self, *args, **options):
         # Required Parameters
         if not options['name']:
@@ -42,8 +43,8 @@ class Command(BaseCommand):
                 yesterday = datetime.now(pytz.timezone('US/Eastern')) - timedelta(1)
                 yesterday = datetime.strftime(yesterday, "%Y-%m-%d")
                 options['date'] = yesterday
-            
-        cmd = ['python', '/home/rpetit/repos/fitbit-steps/fitbit-steps.py', 
+
+        cmd = ['python', '/home/rpetit/repos/fitbit-steps/fitbit-steps.py',
                '--name', options['name'], '--date', options['date']]
 
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
@@ -51,12 +52,12 @@ class Command(BaseCommand):
 
         user = User.objects.get(username=options['username'])
         try:
-            dailytasks = DailyTasks.objects.get(user=user, 
+            dailytasks = DailyTasks.objects.get(user=user,
                                                 date=options['date'])
             dailytasks.steps = int(steps)
             dailytasks.save()
         except DailyTasks.DoesNotExist:
-            dailytasks = DailyTasks.objects.create(user=user, 
-                                                   date=options['date'], 
+            dailytasks = DailyTasks.objects.create(user=user,
+                                                   date=options['date'],
                                                    steps=int(steps))
             dailytasks.save()                                       

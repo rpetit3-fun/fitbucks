@@ -2,6 +2,7 @@ from datetime import date
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class DailyTasks(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(default=date.today().strftime("%Y-%m-%d"))
@@ -12,6 +13,6 @@ class DailyTasks(models.Model):
     planks = models.PositiveSmallIntegerField(default=0)
     sphinxes = models.PositiveSmallIntegerField(default=0)
     workout = models.PositiveSmallIntegerField(default=0)
-    
-    class Meta: 
+
+    class Meta:
         unique_together = ('user', 'date')

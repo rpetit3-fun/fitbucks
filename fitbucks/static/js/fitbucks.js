@@ -11,19 +11,19 @@ function init_datepicker() {
         format: 'yyyy-mm-dd',
         startDate: "2014-10-13",
         endDate: '0d'
-    }).on('changeDate', function(e){
-        var new_date = $('#datepicker').datepicker('getDate')
+    }).on('changeDate', function(){
+        var new_date = $('#datepicker').datepicker('getDate');
         if ( isNaN( new_date.getTime() ) ) {
             $('#datepicker').datepicker('setDate', previous_date);
         } else {
-            new_date = new_date.getFullYear() + '-' +  (new_date.getMonth() + 1) + '-' + new_date.getDate()
-            previous_date = new_date
+            new_date = new_date.getFullYear() + '-' +  (new_date.getMonth() + 1) + '-' + new_date.getDate();
+            previous_date = new_date;
             get_daily_stats(new_date);
         }
     });
-    $('#datepicker').datepicker('setDate', today);  
-};
+    $('#datepicker').datepicker('setDate', today);
 
+}
 function init_stats_form() {
     var frm = $('#save-daily-task');
     frm.submit(function () {
@@ -32,7 +32,7 @@ function init_stats_form() {
             url: '/daily-tasks/',
             data: frm.serialize()+"&steps="+$('#id_steps').val(),
             success: function (data) {
-                get_daily_stats($('#id_date').val())
+                get_daily_stats($('#id_date').val());
                 console.log(data);
             },
             error: function(data) {
@@ -50,7 +50,7 @@ function init_stats_form() {
             url: '/ajax/update-steps/',
             data: "date="+date,
             success: function (data) {
-                get_daily_stats(date)
+                get_daily_stats(date);
                 console.log(data);
             },
             error: function(data) {
@@ -59,8 +59,7 @@ function init_stats_form() {
         });
         return false;
     });
-};
- 
+}
 function get_daily_stats(date) {
     $.ajax({ 
         type: 'POST',
@@ -70,7 +69,7 @@ function get_daily_stats(date) {
         success: function(data) { 
             console.log(data);
             var json = $.parseJSON(data);
-            var field = json[0].fields
+            var field = json[0].fields;
             $('#id_workout').val(field.workout);
             $('#id_workout-icon').html(get_icon('workout', field.workout));
             $('#id_planks').val(field.planks);
@@ -95,32 +94,31 @@ function get_daily_stats(date) {
             }
         }
     });
-};
-
+}
 function get_icon(field, val) {
-    var status = false
+    var status = false;
     
     switch (field) {
         case 'workout':
-            status = (val >= 25 ? true : false);
+            status = (val >= 25);
             break;
         case 'planks':
-            status = (val >= 60 ? true : false);
+            status = (val >= 60);
             break;
         case 'sphinxes':
-            status = (val >= 60 ? true : false);
+            status = (val >= 60);
             break;
         case 'pushups':
-            status = (val >= 50 ? true : false);
+            status = (val >= 50);
             break;
         case 'situps':
-            status = (val >= 50 ? true : false);
+            status = (val >= 50);
             break;
         case 'squats':
-            status = (val >= 50 ? true : false);
+            status = (val >= 50);
             break;
         case 'steps':
-            status = (val >= 10000 ? true : false);
+            status = (val >= 10000);
             break;
     }
 

@@ -38,7 +38,7 @@ INSTALLED_APPS = (
 )
 
 # django-registration
-ACCOUNT_ACTIVATION_DAYS=7
+ACCOUNT_ACTIVATION_DAYS = 7
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 # django_email_changer 
@@ -64,9 +64,9 @@ Static
 https://docs.djangoproject.com/en/1.7/howto/static-files/
 -----------------------------------------------------------------------------'''
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = ( 
-    os.path.join(BASE_DIR, "static"), 
+    os.path.join(BASE_DIR, 'static'),
 )
 STATICFILES_FINDERS = ( 
     'django.contrib.staticfiles.finders.FileSystemFinder', 
@@ -103,7 +103,7 @@ DATABASES = {
 Template 
 -----------------------------------------------------------------------------'''
 TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, "templates"),
+    os.path.join(BASE_DIR, 'templates'),
 )
 
 TEMPLATE_LOADERS = (

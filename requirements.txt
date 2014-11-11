@@ -1,5 +1,5 @@
+django-registration-redux
 Django==1.7
-git+git://github.com/macropin/django-registration
 django-crispy-forms==1.4.0
 psycopg2==2.5.4
 django-email-changer==0.1.2

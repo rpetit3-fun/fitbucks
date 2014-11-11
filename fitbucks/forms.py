@@ -9,10 +9,12 @@ from registration.forms import RegistrationFormUniqueEmail
 
 from fitbucks.models import DailyTasks
 
+
 class RegistrationFormWithName(RegistrationFormUniqueEmail):
-    first_name = forms.CharField(max_length=50, label='First Name')    
+    first_name = forms.CharField(max_length=50, label='First Name')
     last_name = forms.CharField(max_length=50, label='Last Name')
-    
+
+
 class DailyTasksForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(DailyTasksForm, self).__init__(*args, **kwargs)
@@ -37,7 +39,7 @@ class DailyTasksForm(forms.ModelForm):
                                 <button id="update_steps" type="button" class="btn btn-primary btn-lg">
                                     Sync Steps
                                 </button>
-                            '''), css_class='col-sm-5 col-sm-offset-3'), 
+                            '''), css_class='col-sm-5 col-sm-offset-3'),
                     Div(Submit('submit', 'Save', css_class='btn-lg'), css_class='col-sm-3'),
                     css_class='row submit_buttons'
                 ),
@@ -45,7 +47,7 @@ class DailyTasksForm(forms.ModelForm):
             ),
             Field('date', type='hidden'),
         )
-        
+
     def save(self, user, POST):
         try:
             # Exists so lets update
@@ -67,11 +69,11 @@ class DailyTasksForm(forms.ModelForm):
         fields = ['workout', 'planks', 'sphinxes', 'steps',
                   'pushups', 'situps', 'squats', 'date']
         labels = {
-            'workout':_('Workout (Minutes) <div id="id_workout-icon"></div>'), 
-            'planks':_('Planks (Seconds) <div id="id_planks-icon"></div>'), 
-            'sphinxes':_('Sphinxes (Seconds) <div id="id_sphinxes-icon"></div>'),
-            'pushups':_('Push Ups <div id="id_pushups-icon"></div>'), 
-            'situps':_('Sit Ups <div id="id_situps-icon"></div>'), 
-            'squats':_('Squats <div id="id_squats-icon"></div>'),
-            'steps':_('Steps <div id="id_steps-icon"></div>'),
+            'workout': _('Workout (Minutes) <div id="id_workout-icon"></div>'),
+            'planks': _('Planks (Seconds) <div id="id_planks-icon"></div>'),
+            'sphinxes': _('Sphinxes (Seconds) <div id="id_sphinxes-icon"></div>'),
+            'pushups': _('Push Ups <div id="id_pushups-icon"></div>'),
+            'situps': _('Sit Ups <div id="id_situps-icon"></div>'),
+            'squats': _('Squats <div id="id_squats-icon"></div>'),
+            'steps': _('Steps <div id="id_steps-icon"></div>'),
         }
